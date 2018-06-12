@@ -1,2 +1,0 @@
-# solplay
-Solidity playground

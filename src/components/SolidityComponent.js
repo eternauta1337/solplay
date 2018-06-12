@@ -10,7 +10,7 @@ contract Sample {
   
   address public owner;
 
-  function Sample() public {
+  constructor() public {
     owner = msg.sender;
   }
 }`

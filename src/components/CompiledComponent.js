@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
-
-const child_process = require('child_process');
+import axios from 'axios';
 
 class CompiledComponent extends Component {
 
@@ -16,20 +15,27 @@ class CompiledComponent extends Component {
   componentWillReceiveProps(nextProps) {
 
     const source = nextProps.SolidityReducer.source;
-    const output = child_process.spawn('ls', ['-la', '/usr']);
-    output.stdout.on('data', data => console.log(`stdout: ${data}`));
-    output.stderr.on('data', data => console.log(`stderr: ${data}`));
-    output.on('close', code => console.log(`process closed with code: ${code}`));
+    
+    // TODO: use a server to compile the code using solc
+    axios.post(
+      'http://localhost:1337',
+      { source }
+    )
+      .then(response => {
+        const output = response.data
+        this.setState({ output });
+      })
+    const output = source
 
-    this.setState({
-      output
-    });
   }
 
   render() {
     return (
       <div>
-        {this.state.output}
+        <textarea 
+          className="form-control rounded-0" 
+          value={this.state.output}
+          rows="100"/>
       </div>
     );
   }
