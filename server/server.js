@@ -40,10 +40,12 @@ app.use(bodyParser.json());
 app.post('/', (req, res) => {
 
   console.log(`COMPILING...`);
+  console.log(`request: ${ JSON.stringify(req.body, null, 2) }`);
   const source = req.body.source;
+  const options = req.body.options.join(' ');
 
   exec(
-    `echo "${source}" | solc --opcodes`,
+    `echo "${source}" | solc ${options}`,
     (err, stdout, stderr) => {
       if(stderr) {
         res.send(`${stderr}`);

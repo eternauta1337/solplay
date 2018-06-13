@@ -1,13 +1,16 @@
 import * as ActionTypes from './ActionTypes';
+import Store from '../store';
 import axios from 'axios';
 
 const SourceActions = {
 
-  compileSource(source) {
+  compileSource(options = []) {
+    console.log(`SourceActions - compileSource(), options: ${options}`);
+    const source = Store.getState().SourceReducer.source;
     return dispatch => {
       axios.post(
         'http://localhost:1337',
-        { source }
+        { source, options }
       )
       .then(response => {
         const output = response.data

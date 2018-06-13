@@ -12,7 +12,7 @@ const OutputReducer = (state = initialState, action) => {
     newState = {
       ...state,
       output: action.output
-    }
+    };
   }
 
   return newState;
