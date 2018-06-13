@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import SplitPane from 'react-split-pane';
 
-import SolidityComponent from './SolidityComponent';
-import CompiledComponent from './CompiledComponent';
+import SourceComponent from './SourceComponent';
+import OutputComponent from './OutputComponent';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <SplitPane split="vertical" defaultSize="50%">
-          <SolidityComponent/>
-          <CompiledComponent/>
+          <SourceComponent/>
+          <OutputComponent/>
         </SplitPane>
       </div>
     );

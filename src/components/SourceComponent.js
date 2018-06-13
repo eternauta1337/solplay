@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Store from '../store'
-import SolidityActions from '../actions/SolidityActions';
+import SourceActions from '../actions/SourceActions';
 
 const defaultSource = 
 `pragma solidity ^0.4.21;
@@ -15,24 +15,28 @@ contract Sample {
   }
 }`
 
-class Solidity extends Component {
+class SourceComponent extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       source: defaultSource
     }
   }
 
+  componentDidMount() {
+    Store.dispatch(SourceActions.sourceUpdated(this.state.source));
+  }
+
   updateSource(evt) {
 
+    const source = evt.target.value;
     this.setState({
-      source: evt.target.value
+      source
     });
 
-    Store.dispatch(
-      SolidityActions.updateSoliditySource(this.state.source)
-    );
+    Store.dispatch(SourceActions.sourceUpdated(source));
   }
 
   render() {
@@ -57,4 +61,4 @@ function mapStateToProps(state) {
   return {};
 }
 
-export default connect(mapStateToProps)(Solidity);
+export default connect(mapStateToProps)(SourceComponent);

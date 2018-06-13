@@ -1,10 +1,12 @@
 import thunkMiddleware from 'redux-thunk'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 
-import SolidityReducer from './reducers/SolidityReducer';
+import SourceReducer from './reducers/SourceReducer';
+import OutputReducer from './reducers/OutputReducer';
 
 const mainReducer = combineReducers({
-  SolidityReducer
+  SourceReducer,
+  OutputReducer
 });
 
 const Store = createStore(

@@ -45,11 +45,11 @@ app.post('/', (req, res) => {
   exec(
     `echo "${source}" | solc --asm`,
     (err, stdout, stderr) => {
-      if(err) {
-        res.send(`Error: ${err}`);
+      if(stderr) {
+        res.send(`${stderr}`);
       }
       else {
-        res.send(`${stdout}${stderr}`);
+        res.send(`${stdout}`);
       }
       console.log('Compilation finished.');
     }
