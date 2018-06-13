@@ -43,7 +43,7 @@ app.post('/', (req, res) => {
   const source = req.body.source;
 
   exec(
-    `echo "${source}" | solc --asm`,
+    `echo "${source}" | solc --opcodes`,
     (err, stdout, stderr) => {
       if(stderr) {
         res.send(`${stderr}`);

@@ -27,7 +27,7 @@ class OutputComponent extends Component {
     }
 
     // Display compilation output.
-    const output = nextProps.output;
+    const output = nextProps.output.split(' ').join('\n');
     this.setState({
       output
     });
