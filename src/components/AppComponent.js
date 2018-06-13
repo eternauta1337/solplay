@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import SplitPane from 'react-split-pane';
 
 import SourceComponent from './SourceComponent';
-import OutputComponent from './OutputComponent';
+// import OutputComponent from './OutputComponent';
+import OutputContainer from './OutputContainer';
 
 class App extends Component {
   render() {
@@ -10,7 +11,7 @@ class App extends Component {
       <div className="App">
         <SplitPane split="vertical" defaultSize="50%">
           <SourceComponent/>
-          <OutputComponent/>
+          <OutputContainer/>
         </SplitPane>
       </div>
     );
