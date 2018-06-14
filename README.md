@@ -3,7 +3,7 @@
 Solidity playground to write solidity code in the left side and see solc output on the right side --while you type--.
 This does not use solcjs but C++ solc. Requires that the program is installed in the system. Uses a small expressjs server to run the compilations.
 
-This tool is intended to be ran locally, and only intended as a visualization tool for Zeppelin's Solidity Compiler audit.
+This tool is intended to be ran locally, and as a visualization tool for Zeppelin's Solidity Compiler audit.
 
 ![Solcplay gif](../assets/peek_solplay.gif)
 
@@ -12,7 +12,7 @@ This tool is intended to be ran locally, and only intended as a visualization to
 1) Check out repo
 2) `npm i`
 3) Make sure you have solc in your system: [Installing solc](https://solidity.readthedocs.io/en/v0.4.24/installing-solidity.html)
-4) For dissambly options, also make sure you have evmdis installed: [Evmdis](https://github.com/Arachnid/evmdis)
+4) For disassembly options, also make sure you have evmdis installed: [Evmdis](https://github.com/Arachnid/evmdis)
 
 ## Usage
 
