@@ -39,21 +39,45 @@ app.use(bodyParser.json());
 // Endpoints
 app.post('/', (req, res) => {
 
-  console.log(`COMPILING...`);
-  console.log(`request: ${ JSON.stringify(req.body, null, 2) }`);
   const source = req.body.source;
-  const options = req.body.options;
+  let options = req.body.options;
+  const evmdis = options.includes('--bin') && options.includes('--evmdis');
+  if(evmdis) options = options.replace('--evmdis', '');
 
+  // Pipe incoming solidity source code to solc...
   exec(
-    `echo "${source}" | solc ${options}`,
+    `echo "${source}" | solc ${options} ${evmdis ? `-o output --overwrite` : ``}`,
     (err, stdout, stderr) => {
       if(stderr) {
+        
+        // Report solc error if any.
         res.send(`${stderr}`);
       }
       else {
-        res.send(`${stdout}`);
+
+        if(evmdis) {
+        
+          // Pipe solc output to evmdis...
+          exec(
+            `cat output/Sample.bin | evmdis`,
+            (err, stdout, stderr) => {
+              if(stderr) {
+
+                // Report evmdis error if any.
+                res.send(`${stderr}`);
+              }
+              else {
+                res.send(`${stdout}`);
+              }
+            }
+          );
+        }
+        else {
+
+          // Send plain solc output.
+          res.send(`${stdout}`);
+        }
       }
-      console.log('Compilation finished.');
     }
   ); 
 });
