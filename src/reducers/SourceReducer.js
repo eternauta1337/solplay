@@ -10,6 +10,8 @@ contract Sample {
   constructor() public {
     owner = msg.sender;
   }
+
+  // function() public payable {}
 }`
 
 const initialState = { 

@@ -10,6 +10,7 @@ This tool is intended to be ran locally, and only intended as a visualization to
 1) Check out repo
 2) `npm i`
 3) Make sure you have solc in your system: [Installing solc](https://solidity.readthedocs.io/en/v0.4.24/installing-solidity.html)
+4) For dissambly options, also make sure you have evmdis installed: [Evmdis](https://github.com/Arachnid/evmdis)
 
 ## Usage
 
@@ -18,3 +19,4 @@ This tool is intended to be ran locally, and only intended as a visualization to
 3) In your browser => `localhost:3000`
 4) Type solc arguments in the input fields and press enter (type --help to see available commands)
 5) The panels are draggable
+6) For binary outputs like --bin, you can use an aggregated parameter --evmdis to make the output more readable.
