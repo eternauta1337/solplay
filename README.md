@@ -1,20 +1,20 @@
 # Solplay
 
-Solidity playground. Write solidity in the left side and see solc output on the right side on realtime.
+Solidity playground to write solidity code in the left side and see solc output on the right side --while you type--.
+This does not use solcjs but C++ solc. Requires that the program is installed in the system. Uses a small expressjs server to run the compilations.
 
-## UI
-
-Basic React app.
-
-## Compilation
-
-Does not use solcjs but C++ solc. Requires that the program is installed in the system. Uses a small expressjs server to run the compilations.
+This tool is intended to be ran locally, and only intended as a visualization tool for Zeppelin's Solidity Compiler audit.
 
 ## Installation
 
-Check out and `npm i`
+1) Check out repo
+2) `npm i`
+3) Make sure you have solc in your system: [Installing solc](https://solidity.readthedocs.io/en/v0.4.24/installing-solidity.html)
 
 ## Usage
 
-`npm start`
-`npm run server`
+1) `npm start`
+2) `npm run server`
+3) In your browser => `localhost:3000`
+4) Type solc arguments in the input fields and press enter (type --help to see available commands)
+5) The panels are draggable
