@@ -5,6 +5,8 @@ This does not use solcjs but C++ solc. Requires that the program is installed in
 
 This tool is intended to be ran locally, and only intended as a visualization tool for Zeppelin's Solidity Compiler audit.
 
+![Solcplay gif](../assets/peek_solplay.gif)
+
 ## Installation
 
 1) Check out repo
