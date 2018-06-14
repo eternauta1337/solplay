@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const SourceActions = {
 
-  compileSource(options = []) {
+  compileSource(target, options = '') {
     console.log(`SourceActions - compileSource(), options: ${options}`);
     const source = Store.getState().SourceReducer.source;
     return dispatch => {
@@ -14,7 +14,7 @@ const SourceActions = {
       )
       .then(response => {
         const output = response.data
-        dispatch(SourceActions.sourceCompiled(output));
+        dispatch(SourceActions.sourceCompiled(target, output));
       })
     }
   },
@@ -23,8 +23,8 @@ const SourceActions = {
     return { type: ActionTypes.SOURCE_UPDATED, source }
   },
 
-  sourceCompiled(output) {
-    return { type: ActionTypes.SOURCE_COMPILED, output }
+  sourceCompiled(target, output) {
+    return { type: ActionTypes.SOURCE_COMPILED, target, output }
   }
 }
 

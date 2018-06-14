@@ -1,16 +1,3 @@
 html, body {
   height: 100%;
 }
-
-textarea {
-  height: 100% !important;
-  resize: none !important;
-}
-
-/* .fullheight { */
-/*   height: 100%; */
-/* } */
-
-div {
-  height: 100%;
-}

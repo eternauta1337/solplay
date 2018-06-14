@@ -33,6 +33,7 @@
             "error",
             "always"
         ],
-        "react/jsx-uses-vars": ["error"]
+        "react/jsx-uses-vars": ["error"],
+        "react/prop-types": ['']
     }
 }

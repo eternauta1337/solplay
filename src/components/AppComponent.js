@@ -7,8 +7,8 @@ import OutputPanelComponent from './OutputPanelComponent';
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <SplitPane split="vertical" defaultSize="50%">
+      <div>
+        <SplitPane split="vertical" defaultSize="25%">
           <SourcePanelComponent/>
           <OutputPanelComponent/>
         </SplitPane>

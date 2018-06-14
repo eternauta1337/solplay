@@ -2,7 +2,8 @@ import * as ActionTypes from '../actions/ActionTypes';
 
 const initialState = { 
   name: 'OutputReducer',
-  output: '' 
+  outputA: '',
+  outputB: ''
 };
 
 const OutputReducer = (state = initialState, action) => {
@@ -11,7 +12,7 @@ const OutputReducer = (state = initialState, action) => {
   if(action.type === ActionTypes.SOURCE_COMPILED) {
     newState = {
       ...state,
-      output: action.output
+      [`output${action.target}`]: action.output
     };
   }
 

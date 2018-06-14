@@ -42,7 +42,7 @@ app.post('/', (req, res) => {
   console.log(`COMPILING...`);
   console.log(`request: ${ JSON.stringify(req.body, null, 2) }`);
   const source = req.body.source;
-  const options = req.body.options.join(' ');
+  const options = req.body.options;
 
   exec(
     `echo "${source}" | solc ${options}`,

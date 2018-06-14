@@ -1,8 +1,20 @@
 import * as ActionTypes from '../actions/ActionTypes';
 
+const defaultSource = 
+`pragma solidity ^0.4.21;
+
+contract Sample {
+  
+  address public owner;
+
+  constructor() public {
+    owner = msg.sender;
+  }
+}`
+
 const initialState = { 
   name: 'SourceReducer',
-  source: '' 
+  source: defaultSource
 };
 
 const SourceReducer = (state = initialState, action) => {

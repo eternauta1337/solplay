@@ -2,60 +2,42 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Store from '../store'
 import SourceActions from '../actions/SourceActions';
-import CodeComponent from './presentation/CodeComponent';
-
-const defaultSource = 
-`pragma solidity ^0.4.21;
-
-contract Sample {
-  
-  address public owner;
-
-  constructor() public {
-    owner = msg.sender;
-  }
-}`
 
 class SourcePanelComponent extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      source: defaultSource
-    };
-
+  constructor() {
+    super();
     this.updateSource = this.updateSource.bind(this);
   }
 
-  componentDidMount() {
-    Store.dispatch(SourceActions.sourceUpdated(this.state.source));
-  }
-
   updateSource(evt) {
-
     const source = evt.target.value;
-    this.setState({
-      source
-    });
-
     Store.dispatch(SourceActions.sourceUpdated(source));
   }
 
   render() {
     return (
-      <div>
-        <CodeComponent 
-          updateSource={this.updateSource}
-          content={this.state.source}
-        />
+      <div style={{height: '100%'}}>
+        <div className="form-group" style={{height: '100%'}}>
+          <textarea 
+            className="form-control rounded-0" 
+            style={{
+              height: '100%',
+              fontFamily: 'monospace', 
+              fontSize: 13
+            }}
+            onChange={evt => this.updateSource(evt)}
+            value={this.props.source}/>
+        </div>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    source: state.SourceReducer.source
+  };
 }
 
 export default connect(mapStateToProps)(SourcePanelComponent);

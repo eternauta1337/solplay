@@ -12,7 +12,6 @@
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "react-split-pane": "^0.1.77",
-    "react-tabs": "^2.2.2",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "require-from-string": "1.2.0"
