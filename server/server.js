@@ -41,12 +41,21 @@ app.post('/', (req, res) => {
 
   const source = req.body.source;
   let options = req.body.options;
+
+  // Extract non solc options.
   const evmdis = options.includes('--bin') && options.includes('--evmdis');
   if(evmdis) options = options.replace('--evmdis', '');
+  const disasm= options.includes('--bin') && options.includes('--disasm');
+  if(disasm) options = options.replace('--disasm', '');
+  const evmrun= options.includes('--bin') && options.includes('--evmrun');
+  if(evmrun) options = options.replace('--evmrun', '');
+
+  const needsFile = evmdis | disasm | evmrun;
+  const ext = options.includes(`--bin-runtime`) ? `bin-runtime` : `bin`;
 
   // Pipe incoming solidity source code to solc...
   exec(
-    `echo "${source}" | solc ${options} ${evmdis ? `-o output --overwrite` : ``}`,
+    `echo "${source}" | solc ${options} ${needsFile ? `-o output --overwrite` : ``}`,
     (err, stdout, stderr) => {
       if(stderr) {
         
@@ -55,24 +64,34 @@ app.post('/', (req, res) => {
       }
       else {
 
-        if(evmdis) {
-        
-          // Pipe solc output to evmdis...
+        if(evmdis) { // Pipe solc output to evmdis...
           exec(
-            `cat output/Sample.bin | evmdis`,
+            `cat output/Sample.${ext} | evmdis`,
             (err, stdout, stderr) => {
-              if(stderr) {
-
-                // Report evmdis error if any.
-                res.send(`${stderr}`);
-              }
-              else {
-                res.send(`${stdout}`);
-              }
+              if(stderr) res.send(`${stderr}`);
+              else res.send(`${stdout}`);
             }
           );
         }
-        else {
+        else if(disasm) { // Pipe solc output to disasm...
+          exec(
+            `cat output/Sample.${ext} | disasm`,
+            (err, stdout, stderr) => {
+              if(stderr) res.send(`${stderr}`);
+              else res.send(`${stdout}`);
+            }
+          );
+        }
+        else if(evmrun) { // Pipe solc output to evm...
+          exec(
+            `evm --debug --code $(cat output/Sample.${ext}) run`,
+            (err, stdout, stderr) => {
+              if(stderr) res.send(`${stderr}`);
+              else res.send(`${stdout}`);
+            }
+          );
+        }
+        else { // Plain solc output...
 
           // Send plain solc output.
           res.send(`${stdout}`);

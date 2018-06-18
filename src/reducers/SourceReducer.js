@@ -5,13 +5,11 @@ const defaultSource =
 
 contract Sample {
   
-  address public owner;
+  int x;
 
-  constructor() public {
-    owner = msg.sender;
+  function add(int a, int b) public {
+    x = a + b;
   }
-
-  // function() public payable {}
 }`
 
 const initialState = { 

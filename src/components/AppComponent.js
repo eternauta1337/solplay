@@ -11,8 +11,8 @@ class App extends Component {
         <SplitPane split="vertical" defaultSize="20%">
           <SourcePanelComponent/>
           <SplitPane split="vertical" defaultSize="50%">
-            <OutputComponent target='A' defaultCompilationOptions='--ast'/>
-            <OutputComponent target='B' defaultCompilationOptions='--bin'/>
+            <OutputComponent target='A' defaultCompilationOptions='--bin-runtime'/>
+            <OutputComponent target='B' defaultCompilationOptions='--bin-runtime --optimize'/>
           </SplitPane>
         </SplitPane>
       </div>
