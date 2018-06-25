@@ -57,45 +57,35 @@ app.post('/', (req, res) => {
   exec(
     `echo "${source}" | solc ${options} ${needsFile ? `-o output --overwrite` : ``}`,
     (err, stdout, stderr) => {
-      if(stderr) {
-        
-        // Report solc error if any.
-        res.send(`${stderr}`);
+
+      if(evmdis) { // Pipe solc output to evmdis...
+        exec(
+          `cat output/Sample.${ext} | evmdis`,
+          (err, stdout, stderr) => {
+            res.send(`${stderr}${stdout}`);
+          }
+        );
       }
-      else {
+      else if(disasm) { // Pipe solc output to disasm...
+        exec(
+          `cat output/Sample.${ext} | disasm`,
+          (err, stdout, stderr) => {
+            res.send(`${stderr}${stdout}`);
+          }
+        );
+      }
+      else if(evmrun) { // Pipe solc output to evm...
+        exec(
+          `evm --debug --code $(cat output/Sample.${ext}) run`,
+          (err, stdout, stderr) => {
+            res.send(`${stderr}${stdout}`);
+          }
+        );
+      }
+      else { // Plain solc output...
 
-        if(evmdis) { // Pipe solc output to evmdis...
-          exec(
-            `cat output/Sample.${ext} | evmdis`,
-            (err, stdout, stderr) => {
-              if(stderr) res.send(`${stderr}`);
-              else res.send(`${stdout}`);
-            }
-          );
-        }
-        else if(disasm) { // Pipe solc output to disasm...
-          exec(
-            `cat output/Sample.${ext} | disasm`,
-            (err, stdout, stderr) => {
-              if(stderr) res.send(`${stderr}`);
-              else res.send(`${stdout}`);
-            }
-          );
-        }
-        else if(evmrun) { // Pipe solc output to evm...
-          exec(
-            `evm --debug --code $(cat output/Sample.${ext}) run`,
-            (err, stdout, stderr) => {
-              if(stderr) res.send(`${stderr}`);
-              else res.send(`${stdout}`);
-            }
-          );
-        }
-        else { // Plain solc output...
-
-          // Send plain solc output.
-          res.send(`${stdout}`);
-        }
+        // Send plain solc output.
+        res.send(`${stderr}${stdout}`);
       }
     }
   ); 
